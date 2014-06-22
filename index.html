@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Go Introduction</title>
+
+		<meta name="description" content="Go Introduction">
+		<meta name="author" content="Yuriy Vasiyarov">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<link rel="stylesheet" href="css/reveal.min.css">
+		<link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+		<!-- For syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<!-- If the query includes 'print-pdf', use the PDF print sheet -->
+		<script>
+			document.write( '<link rel="stylesheet" href="css/print/' + ( window.location.search.match( /print-pdf/gi ) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">' );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h1>Go Introduction</h1>
+					<h3>Special for Lazada Platform team</h3>
+					<p>
+						<small>Created by <a href="http://yvasiyarov.com/">Yuriy Vasiyarov</a></small>
+					</p>
+				</section>
+
+        <section>
+          <h2>Go is...like C</h2>
+          <ul>
+            <li><h3>Low level</h3></li>
+            <li><h3>Compiled</h3></li>
+            <li><h3>Not object oriented</h3></li>
+            <li><h3>Memory efficient</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h2>But Go is not C...Go is better!</h2>
+          <ul>
+            <li><h3>Garbage collector</h3></li>
+            <li><h3>Go routines</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h1>Go memory model</h1>
+          <h3>...is very efficient</h3>
+        </section>
+        <section>
+          <ul>
+            <li><h3>bool variable - takes only 1 byte</h3></li>
+            <li><h3>int variable - takes only 4 bytes</h3></li>
+            <li><h3>float variable - takes only 8 bytes</h3></li>
+            <li><h3>array of 10 bool - takes exactly 10 bytes</h3></li>
+            <li><h3>struct which consist of 3 integers - takes exactly 12 bytes</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h1>Just like in C</h1>
+          <h3>compare it with PHP/Ruby/etc...</h3>
+        </section>
+        <section>
+          <h2>Value types VS reference types</h2>
+          <ul>
+            <li><h3>bool, int, float, STRUCT - are value types</h3></li>
+            <li><h3>slices,maps,channels, interfaces - are reference types</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h1>You should think twice before pass struct by value</h1>
+          <h3>in most cases you should use pointer instead</h3>
+        </section>
+        <section>
+          <h1>Slices</h1>
+        </section>
+        <section>
+          <h3>slice := []int{1,2,3,4, 5, 6, 7, 8, 9, 10}</h3>
+          <h3>unsafe.Sizeof(slice).... 12 bytes!</h3>
+        </section>
+        <section>
+          <h1>WHY ??</h1>
+        </section>
+        <section>
+          <h2>Because slice != array</h2>
+          <h2>Slice is reference to array</h2>
+        </section>
+        <section>
+          <h2>On low level slice is</h2>
+          <pre>
+            struct {
+              storage - pointer to underlying array
+              length - length of slice
+              capacity - slice capacity(length of underlying array)  
+            }
+          </pre>
+        </section>
+        <section>
+          <h2>Slice storage managed by Go runtime</h2>
+          <ul>
+            <li><h3>several slices can reference to same array</h3></li>
+            <li><h3>Go runtime count refernces to underlying array</h3></li>
+            <li><h3>Go can expand underlying array(append())</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Maps</h2>
+          <ul>
+            <li><h3>Map is hash table (like "array" in PHP)</h3></li>
+            <li><h3>Map always expands automatically</h3></li>
+            <li><h3>Maps are not safe for concurrent usage</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Interfaces</h2>
+          <ul>
+            <li><h3>Interface - is not pointer</h3></li>
+            <li><h3>Interface used when you dont know type at compile time</h3></li>
+            <li><h3>a := []interface{} - slice which can contain data of any types</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h1>Interfaces on low level</h1>
+          <h3><a href="http://research.swtch.com/interfaces">http://research.swtch.com/interfaces</a></h3>
+        </section>
+        <section>
+          <h2>Channels</h2>
+          <ul>
+            <li><h3>channels is Go way of synchronization</h3></li>
+            <li><h3>channels is not magic. Powered by well known primitives</h3></li>
+            <li><h3>Go concurrency patterns - <a href="http://talks.golang.org/2012/concurrency.slide#1">http://talks.golang.org/2012/concurrency.slide#1</a></h3></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Goroutines</h2>
+          <ul>
+            <li><h3>Goroutines are truly parallel</h3></li>
+            <li><h3>Goroutines are easy to use</h3></li>
+            <li><h3>Goroutines are lightweight</h3></li>
+            <li><h3>...same as in Erlang/Haskell/...</h3></li>
+            <li><h3>Goroutines are not OS threads</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h2>Go scheduler</h2>
+          <ul>
+            <li><h3>Automatically create/destroy OS threads</h3></li>
+            <li><h3>Can utilise any number of CPU's - but use only 1 by default</h3></li>
+            <li><h3>Go scheduler automatically distribute goroutines across available CPU's</h3></li>
+          </ul>
+        </section>
+        <section>
+          <h1>Goroutines sometimes too powerful...</h1>
+          <h3>Don't shoot into your legs!</h3>
+        </section>
+        <section>
+          <h2>Race conditions</h2>
+          <ul>
+            <li><h3>Very hard to debug/fix</h3></li>
+            <li><h3>Atomic primitives are safe for concurrent usage</h3></li>
+            <li><h3>All other data must be protected by mutexes/channels</h3></li>
+            <li><h3>Go has build in race detector! <a href="http://blog.golang.org/race-detector">http://blog.golang.org/race-detector</a></h3></li>
+          </ul>
+        </section>
+ 
+ 				<section>
+					<h1>Questions ?</h1>
+ 				</section>
+ 			</div>
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.min.js"></script>
+
+		<script>
+
+			// Full list of configuration options available here:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+                width: 1200,
+				controls: true,
+				progress: true,
+				history: true,
+				center: true,
+
+				theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+				transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+				// Parallax scrolling
+				// parallaxBackgroundImage: 'https://s3.amazonaws.com/hakim-static/reveal-js/reveal-parallax-1.jpg',
+				// parallaxBackgroundSize: '2100px 900px',
+
+				// Optional libraries used to extend on reveal.js
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+					{ src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
